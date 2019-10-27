@@ -21,5 +21,7 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
         "Single Directory for all"
     )
 
+enable_testing()
+
 add_subdirectory( src build/src )
 add_subdirectory( utests build/utests )
