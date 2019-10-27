@@ -23,5 +23,5 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
 
 enable_testing()
 
-add_subdirectory( src build/src )
-add_subdirectory( utests build/utests )
+add_subdirectory(src build/src)
+add_subdirectory(utests build/utests)
