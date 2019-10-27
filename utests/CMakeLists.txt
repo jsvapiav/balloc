@@ -8,4 +8,4 @@ set(SOURCE_EXE utest.c)
 add_executable(utest ${SOURCE_EXE})
 
 # link balloc lib
-target_link_libraries(main {CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/libballoc.a)
+target_link_libraries(utest balloc)
