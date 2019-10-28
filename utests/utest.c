@@ -2,6 +2,10 @@
 #include "../src/balloc.h"
 
 int main(void) {
-	printf("Welcome to utests\n");
-	return 0;
+	char *block;
+	balloc_init();
+	block = balloc_alloc();
+	if (!block)
+		return 1;
+	return balloc_free(block);
 }
