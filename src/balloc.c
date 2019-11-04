@@ -1,5 +1,7 @@
-#include "balloc.h"
 #include <assert.h>
+#include "balloc.h"
+#include "platform.h"
+
 
 #define BALLOC_MEM_BLOCK_SIZE (sizeof(struct balloc_mem_block))
 #define BALLOC_POOL_SIZE (sizeof(struct balloc_mem_block) * BALLOC_BLOCK_NUM)
