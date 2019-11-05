@@ -11,7 +11,7 @@ enum balloc_error {
 
 void  balloc_init();
 void* balloc_alloc();
-int   balloc_free(void *block);
+int   balloc_free(void *mem);
 
 
 #define BALLOC_H

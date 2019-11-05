@@ -1,8 +1,18 @@
 #include <assert.h>
 #include <stdint.h>
+#include <stddef.h>
 #include <stdio.h>
 #include "balloc.h"
 #include "platform.h"
+
+#ifdef __GNUC__
+#define member_type(type, member) __typeof__ (((type *)0)->member)
+#else
+#define member_type(type, member) const void
+#endif
+
+#define container_of(ptr, type, member) ((type *)( \
+    (char *)(member_type(type, member) *){ ptr } - offsetof(type, member)))
 
 struct balloc_canary {
 	balloc_platform_canary_int canary;
@@ -66,9 +76,24 @@ void* balloc_alloc() {
 	return (void *) BALLOC_ERROR;
 }
 
-int   balloc_free(void *block) {
+int   balloc_free(void *mem) {
+	struct balloc_mem_block *block;
+
 	if (balloc_allocated == 0)
 		return BALLOC_ERROR;
 
+	block = container_of(mem, struct balloc_mem_block, block);
+
+	if (block->hdr.prefix.canary != BALLOC_PLATFORM_PREFIX_CANARY ||
+		block->postfix.canary != BALLOC_PLATFORM_POSTFIX_CANARY) {
+		return BALLOC_ERROR;
+	}
+
+	block->hdr.state.in_use = 0;
+	balloc_allocated -= 1; // #TODO protect it!
 	return BALLOC_SUCCES;
+
 }
+
+#undef container_of
+#undef member_type
