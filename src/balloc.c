@@ -19,7 +19,7 @@ struct balloc_canary {
 };
 
 struct balloc_block_hdr {
-	union U {
+	union {
 		balloc_platform_fast_uint in_use;
 		balloc_platform_fast_uint block_num;
 	} state;
@@ -91,8 +91,8 @@ int   balloc_free(void *mem) {
 
 	block->hdr.state.in_use = 0;
 	balloc_allocated -= 1; // #TODO protect it!
+	mem = NULL;
 	return BALLOC_SUCCES;
-
 }
 
 #undef container_of

@@ -10,5 +10,5 @@ int main(void) {
 		return 1;
 	}
 	printf("Check free\n");
-	return !balloc_free(block);
+	return !balloc_free(block) || !block;
 }
