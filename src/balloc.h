@@ -1,8 +1,8 @@
 #ifndef BALLOC_H
 
 
-#define BALLOC_BLOCK_SIZE 16
-#define BALLOC_BLOCK_NUM 64
+#define BALLOC_BLOCK_SIZE (16)
+#define BALLOC_BLOCK_NUM (64)
 
 enum balloc_error {
 	BALLOC_ERROR  = 0,
