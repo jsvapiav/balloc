@@ -16,5 +16,5 @@ int main(void) {
 	for (n = 0; n != BALLOC_BLOCK_NUM; ++n) {
 		;;
 	}
-        return balloc_free(block) && balloc_free(block_prev);
+        return !balloc_free(block) && !balloc_free(block_prev);
 }

@@ -5,7 +5,10 @@ int main(void) {
 	char *block;
 	balloc_init();
 	block = balloc_alloc();
-	if (!block)
+	if (block == BALLOC_ERROR) {
+		printf("Block addr: %d\n", (unsigned int) block);
 		return 1;
-	return balloc_free(block);
+	}
+	printf("Check free\n");
+	return !balloc_free(block);
 }

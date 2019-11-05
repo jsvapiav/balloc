@@ -1,8 +1,12 @@
 #ifndef BALLOC_PLATFORM_H
 #include <stdint.h>
 
+#define BALLOC_PLATFORM_PREFIX_CANARY 0xDEADBEAF
+#define BALLOC_PLATFORM_POSTFIX_CANARY 0xBEAFCAFE
+
 typedef int32_t balloc_platform_fast_int;
 typedef uint32_t balloc_platform_fast_uint;
+typedef balloc_platform_fast_uint balloc_platform_canary_int;
 
 /*
  * Here should be defined following function:
