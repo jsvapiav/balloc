@@ -2,9 +2,8 @@
 
 ### Compilation and testing
 
-git clone https://github.com/jsvapiav/balloc.git
-
 ```
+git clone https://github.com/jsvapiav/balloc.git
 cd balloc
 mkdir build
 cd build
