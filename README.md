@@ -4,8 +4,10 @@
 
 git clone https://github.com/jsvapiav/balloc.git
 
+```
 cd balloc
 mkdir build
 cd build
 cmake ..
 make && make test
+```
