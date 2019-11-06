@@ -5,11 +5,18 @@
 #define N_THREADS (3)
 #define N_OF_CIRLCES (5)
 
+typedef struct thread_ags {
+	int id;
+	char *block;
+} thread_args_t;
+
 static pthread_barrier_t barrier;
 
 void *thread(void *args) {
 	int n;
 	int status;
+	int id = ((thread_args_t *) args)->id;
+	char *block = ((thread_args_t *) args)->block;
 
 	n = 0;
 	while (n < N_OF_CIRLCES) {
@@ -23,11 +30,6 @@ void *thread(void *args) {
 
 	return NULL;
 }
-
-typedef struct thread_ags {
-	int id;
-	char *block;
-} thread_args_t;
 
 int main(void) {
 	char *blocks[BALLOC_BLOCK_NUM];
