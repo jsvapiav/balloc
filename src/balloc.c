@@ -12,7 +12,7 @@
 #endif
 
 #define container_of(ptr, type, member) ((type *)( \
-    (char *)(member_type(type, member) *){ ptr } - offsetof(type, member)))
+	(char *)(member_type(type, member) *){ ptr } - offsetof(type, member)))
 
 struct balloc_canary {
 	balloc_platform_canary_int canary;
@@ -35,7 +35,6 @@ struct balloc_mem_block {
 #define BALLOC_MEM_BLOCK_SIZE (sizeof(struct balloc_mem_block))
 #define BALLOC_POOL_SIZE (sizeof(struct balloc_mem_block) * BALLOC_BLOCK_NUM)
 
-volatile balloc_platform_fast_uint balloc_allocated;
 uint8_t balloc_mem_pool[BALLOC_POOL_SIZE];
 
 void  balloc_init() {
@@ -46,8 +45,6 @@ void  balloc_init() {
 	};
 	int n;
 
-	balloc_allocated = 0;
-
 	for (n = 0; n != BALLOC_BLOCK_NUM; ++n)
 		*((struct balloc_mem_block*) &balloc_mem_pool[n * BALLOC_MEM_BLOCK_SIZE]) = mem_init;
 }
@@ -56,15 +53,9 @@ void* balloc_alloc() {
 	int n;
 	struct balloc_mem_block *block = (struct balloc_mem_block*) &balloc_mem_pool;
 
-	if (balloc_allocated == BALLOC_BLOCK_NUM)
-		return (void *) BALLOC_ERROR;
-
-	assert (balloc_allocated <= BALLOC_BLOCK_NUM);
-
 	for (n = 0; n != BALLOC_BLOCK_NUM; ++n) {
 		if (balloc_platform_compare_and_set(&block[n].hdr.state.in_use, 0, n + 1)) {
 			assert(block[n].hdr.state.in_use == n + 1);
-			balloc_allocated += 1; // #TODO protect it!
 			return (void *) block[n].block;
 		}
 	}
@@ -75,9 +66,6 @@ void* balloc_alloc() {
 int   balloc_free(void **mem) {
 	struct balloc_mem_block *block;
 
-	if (balloc_allocated == 0)
-		return BALLOC_ERROR;
-
 	block = container_of(*mem, struct balloc_mem_block, block);
 
 	if (block->hdr.prefix.canary != BALLOC_PLATFORM_PREFIX_CANARY ||
@@ -87,7 +75,6 @@ int   balloc_free(void **mem) {
 	}
 
 	block->hdr.state.in_use = 0;
-	balloc_allocated -= 1; // #TODO protect it!
 	*mem = NULL;
 
 	return BALLOC_SUCCES;
