@@ -62,12 +62,8 @@ void* balloc_alloc() {
 	assert (balloc_allocated <= BALLOC_BLOCK_NUM);
 
 	for (n = 0; n != BALLOC_BLOCK_NUM; ++n) {
-		printf("Check block n: %d in use: %llu\n", n, block[n].hdr.state.in_use);
-		printf("Block size: %lu\n", sizeof(block[n].block));
 		if (balloc_platform_compare_and_set(&block[n].hdr.state.in_use, 0, n + 1)) {
 			assert(block[n].hdr.state.in_use == n + 1);
-			printf("found block n: %d in use: %llu\n", n, block[n].hdr.state.in_use);
-			printf("block addr: 0x%x\n", (unsigned int) block[n].block);
 			balloc_allocated += 1; // #TODO protect it!
 			return (void *) block[n].block;
 		}
@@ -93,6 +89,7 @@ int   balloc_free(void **mem) {
 	block->hdr.state.in_use = 0;
 	balloc_allocated -= 1; // #TODO protect it!
 	*mem = NULL;
+
 	return BALLOC_SUCCES;
 }
 

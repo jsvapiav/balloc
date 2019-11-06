@@ -5,11 +5,11 @@ cmake_minimum_required(VERSION 2.8)
 project(balloc)
 
 # make platform specific decision
-if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR CMAKE_C_COMPILER_ID STREQUAL "gcc")
+if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR CMAKE_C_COMPILER_ID STREQUAL "gcc" OR CMAKE_C_COMPILER_ID STREQUAL "GNU")
     set (COMP_PATH gcc)
     message(STATUS, "Compiler: ${CMAKE_C_COMPILER_ID}")
 else ()
-    message(FATAL_ERROR, "Unsupported compiler: ${CMAKE_C_COMPILER}")
+    message(FATAL_ERROR, "Unsupported compiler: ${CMAKE_C_COMPILER_ID}")
 endif()
 
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "([xX]86$)")
