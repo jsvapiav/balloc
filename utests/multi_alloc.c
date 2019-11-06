@@ -24,7 +24,8 @@ int main(void) {
 		return 1;
 
 	printf("free one block\n");
-	if (balloc_free((void **) &blocks[BALLOC_BLOCK_NUM/2]) != BALLOC_SUCCES || blocks[BALLOC_BLOCK_NUM/2]) {
+	if (balloc_free((void **) &blocks[BALLOC_BLOCK_NUM/2]) != BALLOC_SUCCES
+		|| blocks[BALLOC_BLOCK_NUM/2]) {
 		return 1;
 	}
 

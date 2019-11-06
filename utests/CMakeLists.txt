@@ -1,6 +1,9 @@
 # set project name
 project(utests)
 
+# add pthread package
+find_package (Threads)
+
 # add utests source
 set(SANITY_CHECK_EXE sanity_check.c)
 set(MULTY_ALLOC_EXE multi_alloc.c)
@@ -15,7 +18,7 @@ add_executable(threads_check ${THREADS_CHECK_EXE})
 # link balloc lib
 target_link_libraries(sanity_check balloc)
 target_link_libraries(multi_alloc balloc)
-target_link_libraries(threads_check balloc)
+target_link_libraries(threads_check balloc ${CMAKE_THREAD_LIBS_INIT})
 
 # set compiler options
 set(CXX_WAR_AS_ERR -Werror -Wall -pedantic)
