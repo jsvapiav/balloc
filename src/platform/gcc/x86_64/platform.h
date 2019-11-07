@@ -9,7 +9,9 @@ typedef uint64_t balloc_platform_fast_uint;
 typedef balloc_platform_fast_uint balloc_platform_canary_int;
 
 /*
- * Here should be defined following function:
+ * Here should be defined compare and set function
+ * with following definition:
+
  * balloc_platform_fast_uint balloc_platform_compare_and_set(
  * 				balloc_platform_fast_uint *ptr,
  *				balloc_platform_fast_uint oldval,
