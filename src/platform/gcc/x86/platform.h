@@ -30,7 +30,13 @@ typedef balloc_platform_fast_uint balloc_platform_canary_int;
  * just use typedef here.
  */
 
-typedef __sync_bool_compare_and_swap balloc_platform_compare_and_set;
+balloc_platform_fast_uint balloc_platform_compare_and_set(
+				balloc_platform_fast_uint *ptr,
+				balloc_platform_fast_uint oldval,
+				balloc_platform_fast_uint newval)
+{
+	return __sync_bool_compare_and_swap(ptr, oldval, newval);
+}
 
 #define BALLOC_PLATFORM_H
 #endif

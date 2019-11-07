@@ -12,7 +12,7 @@ else ()
     message(FATAL_ERROR, "Unsupported compiler: ${CMAKE_C_COMPILER_ID}")
 endif()
 
-if (CMAKE_SYSTEM_PROCESSOR MATCHES "([xX]86$)")
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "([xX]86$)|(i686)|(i386)")
     set (SYS_PATH x86)
     message(STATUS, "Processor type: ${CMAKE_SYSTEM_PROCESSOR}")
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "([xX]86_64)|(amd64)|(AMD64)")
